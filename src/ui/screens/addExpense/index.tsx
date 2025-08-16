@@ -1,13 +1,19 @@
-import { View, TextInput, Text } from 'react-native';
+import { View, TextInput, Text, Alert } from 'react-native';
 import { AddExpenseScreenProps } from './types/props.type';
 import { styles } from './styles';
 import { useState } from 'react';
 import { ExpenseFormState } from './types/ExportFormState.type';
 import { UIButton } from '../../components/button/UIButton';
+import { useRealm } from '@realm/react';
+import { Expense } from '../../../db/models/Expense';
+import Realm from 'realm';
 
 export const AddExpenseScreen: React.FC<AddExpenseScreenProps> = ({
   navigation,
 }) => {
+  // get the realm instance
+  const realm = useRealm();
+
   const [expense, setExpense] = useState<ExpenseFormState>({
     description: '',
     amount: '',
@@ -15,7 +21,25 @@ export const AddExpenseScreen: React.FC<AddExpenseScreenProps> = ({
   });
 
   function onAddExpenseButtonClick() {
-    console.log('Expense Added:', expense);
+    if (!expense.description || !expense.amount || !expense.date) {
+      Alert.alert(
+        'Invalid Input',
+        'Kindly fill all the fields to add an expense.',
+        [{ text: 'OK', style: 'default' }],
+      );
+      return;
+    }
+
+    // add the expense to the database
+    realm.write(() => {
+      realm.create(Expense, {
+        id: new Realm.BSON.ObjectId(),
+        description: expense.description,
+        amount: parseFloat(expense.amount),
+        date: new Date(expense.date),
+      });
+    });
+
     navigation.goBack(); // Navigate back after adding expense
   }
 

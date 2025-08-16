@@ -1,7 +1,7 @@
 import {
   ADD_EXPENSE_SCREEN,
 } from '../../../navigation/screenName.constant';
-import { HomeScreenProps } from './types/props.type';
+import { HomeScreenProps } from './props.type';
 
 export const useHomeUI = (props: HomeScreenProps) => {
   console.log(JSON.stringify(props));

@@ -1,4 +1,4 @@
-import { Expense } from '../../screens/home/types/expense.type';
+import { Expense } from "../../../db/models/Expense";
 
 export type ExpenseItemProps = {
   expense: Expense;
