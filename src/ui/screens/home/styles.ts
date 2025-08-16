@@ -18,6 +18,8 @@ export const styles = StyleSheet.create({
   },
   buttonView:{
     flex: 1,
+    borderTopColor: 'white',
+    borderTopWidth: 1,
     justifyContent: 'center',
   },
 });

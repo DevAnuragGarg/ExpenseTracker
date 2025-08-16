@@ -4,10 +4,11 @@ import { HomeScreenProps } from './types/props.type';
 import { UIButton } from '../../components/button/UIButton';
 import { DUMMY_EXPENSES } from '../../helper/dummy_data';
 import { ExpenseItem } from '../../components/expenseItem/ExpenseItem';
+import { ADD_EXPENSE_SCREEN } from '../../../navigation/screenName.constant';
 
-export const HomeScreen: React.FC<HomeScreenProps> = _ => {
+export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   function onExpenseAdd() {
-    console.log('Add Expense button clicked');
+    navigation.navigate(ADD_EXPENSE_SCREEN);
   }
 
   function renderExpenseItem(itemData: {
