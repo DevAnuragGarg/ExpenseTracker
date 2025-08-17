@@ -3,7 +3,10 @@ import { styles } from './styles';
 import { HomeScreenProps } from './props.type';
 import { UIButton } from '../../components/button/UIButton';
 import { ExpenseItem } from '../../components/expenseItem/ExpenseItem';
-import { ADD_EXPENSE_SCREEN } from '../../../navigation/screenName.constant';
+import {
+  ADD_EXPENSE_SCREEN,
+  CHART_SCREEN,
+} from '../../../navigation/screenName.constant';
 import { useQuery } from '@realm/react';
 import { Expense } from '../../../db/models/Expense';
 
@@ -13,6 +16,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
   function onExpenseAdd() {
     navigation.navigate(ADD_EXPENSE_SCREEN);
+  }
+
+  function showExpenseChart() {
+    navigation.navigate(CHART_SCREEN);
   }
 
   function renderExpenseItem(itemData: { item: Expense }) {
@@ -28,6 +35,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           renderItem={renderExpenseItem}
           keyExtractor={item => item.id.toString()}
         />
+      </View>
+
+      <View style={styles.buttonView}>
+        <UIButton text="SHOW EXPENSE CHARTS" onClick={showExpenseChart} />
       </View>
 
       <View style={styles.buttonView}>

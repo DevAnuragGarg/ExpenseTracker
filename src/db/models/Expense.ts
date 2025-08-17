@@ -1,20 +1,21 @@
-// models/Expense.ts
-import Realm from "realm";
+import Realm from 'realm';
 
 export class Expense extends Realm.Object {
   id!: Realm.BSON.ObjectId;
+  category!: string;
   description!: string;
   amount!: number;
   date!: Date;
 
   static schema: Realm.ObjectSchema = {
-    name: "Expense",
-    primaryKey: "id",
+    name: 'Expense',
+    primaryKey: 'id',
     properties: {
-      id: "objectId",
-      description: "string",
-      amount: "double",
-      date: "date",
+      id: 'objectId',
+      category: 'string',
+      description: 'string',
+      amount: 'double',
+      date: 'date',
     },
   };
 }

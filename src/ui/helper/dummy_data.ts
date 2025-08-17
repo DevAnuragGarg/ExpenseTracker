@@ -36,3 +36,12 @@ export const DUMMY_EXPENSES = [
     date: new Date('2025-06-01'),
   },
 ]; // Example expenses for demonstration
+
+export const EXPENSE_CATEGORIES = [
+  { id: 'c1', name: 'Grocery' },
+  { id: 'c2', name: 'Transport' },
+  { id: 'c3', name: 'Shopping' },
+  { id: 'c4', name: 'Utilities' },
+  { id: 'c5', name: 'Entertainment' },
+  { id: 'c6', name: 'Others' },
+]; // Example categories for demonstration

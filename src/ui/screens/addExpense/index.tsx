@@ -7,6 +7,8 @@ import { UIButton } from '../../components/button/UIButton';
 import { useRealm } from '@realm/react';
 import { Expense } from '../../../db/models/Expense';
 import Realm from 'realm';
+import { Picker } from '@react-native-picker/picker';
+import { EXPENSE_CATEGORIES } from '../../helper/dummy_data';
 
 export const AddExpenseScreen: React.FC<AddExpenseScreenProps> = ({
   navigation,
@@ -16,6 +18,7 @@ export const AddExpenseScreen: React.FC<AddExpenseScreenProps> = ({
 
   const [expense, setExpense] = useState<ExpenseFormState>({
     description: '',
+    category: '',
     amount: '',
     date: '',
   });
@@ -35,6 +38,7 @@ export const AddExpenseScreen: React.FC<AddExpenseScreenProps> = ({
       realm.create(Expense, {
         id: new Realm.BSON.ObjectId(),
         description: expense.description,
+        category: expense.category,
         amount: parseFloat(expense.amount),
         date: new Date(expense.date),
       });
@@ -47,6 +51,10 @@ export const AddExpenseScreen: React.FC<AddExpenseScreenProps> = ({
     setExpense(prev => ({ ...prev, description: text }));
   }
 
+  function onCategoryTextChange(text: string) {
+    setExpense(prev => ({ ...prev, category: text }));
+  }
+
   function onAmountTextChange(text: string) {
     setExpense(prev => ({ ...prev, amount: text }));
   }
@@ -57,6 +65,22 @@ export const AddExpenseScreen: React.FC<AddExpenseScreenProps> = ({
 
   return (
     <View style={styles.root}>
+      <Text style={styles.title}>Expense Category</Text>
+      <View style={styles.pickerContainer}>
+        <Picker
+          selectedValue={expense.category}
+          style={styles.picker}
+          onValueChange={onCategoryTextChange}
+        >
+          {EXPENSE_CATEGORIES.map(category => (
+            <Picker.Item
+              key={category.id}
+              label={category.name}
+              value={category.name}
+            />
+          ))}
+        </Picker>
+      </View>
       <Text style={styles.title}>Expense Item</Text>
       <TextInput
         style={styles.textInput}

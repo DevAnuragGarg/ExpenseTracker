@@ -34,7 +34,7 @@ The goal of this project is to create a lightweight and efficient expense tracke
 
 - **React Native** (UI Framework)
 - **SQLite / Realm** (Local DB) (Using Realm SDK in place of Realm as it automatically handles Realm lifecycle (open/close, updates, listeners). )
-- **react-native-chart-kit / Recharts / Victory Native** (Charts)
+- **react-native-chart-kit / Recharts / Victory Native** (Charts) **Command** npm install react-native-chart-kit react-native-svg
 - **react-native-fs** (File System for Backup & Restore)
 
 ---
