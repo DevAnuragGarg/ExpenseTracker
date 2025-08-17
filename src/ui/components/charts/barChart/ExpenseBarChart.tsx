@@ -1,13 +1,14 @@
 import { Dimensions, View, Text } from 'react-native';
-import { PieChart } from 'react-native-chart-kit';
-import { ExpensePieChartProps } from './props.types';
+import { BarChart } from 'react-native-chart-kit';
+import { ExpenseBarChartProps } from './props.types';
 import { styles } from './styles';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
-export const ExpensePieChart: React.FC<ExpensePieChartProps> = ({ data }) => {
+export const ExpenseBarChart: React.FC<ExpenseBarChartProps> = ({ data }) => {
   const hasData = data && data.length > 0;
+
   if (!hasData) {
     return (
       <View style={styles.emptyRootView}>
@@ -16,36 +17,35 @@ export const ExpensePieChart: React.FC<ExpensePieChartProps> = ({ data }) => {
     );
   }
 
-  const chartData = data.map((item, index) => ({
-    name: item.category,
-    population: item.total,
-    color: ['#FF6384', '#36A2EB', '#FFCE56', '#8BC34A', '#9C27B0'][index % 5],
-    legendFontColor: '#FFFFFF',
-    legendFontSize: 14,
-  }));
+  const chartData = {
+    labels: data.map(item => item.category), // x-axis labels
+    datasets: [
+      {
+        data: data.map(item => item.total), // y-axis values
+      },
+    ],
+  };
 
   return (
-    <PieChart
+    <BarChart
+      style={styles.chart}
       data={chartData}
       width={screenWidth - 20}
-      height={screenHeight * 0.3}
+      height={screenHeight * 0.32}
       chartConfig={{
-        strokeWidth: 2,
-        decimalPlaces: 0,
-        useShadowColorFromDataset: false,
-        style: {
-          borderRadius: 8,
-        },
         backgroundColor: '#fff',
         backgroundGradientFrom: '#fff',
         backgroundGradientTo: '#fff',
+        decimalPlaces: 0,
         color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
         labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+        style: {
+          borderRadius: 8,
+        },
       }}
-      accessor="population"
-      backgroundColor="transparent"
-      paddingLeft="15"
-      absolute
+      yAxisLabel="$"
+      yAxisSuffix=""
+      verticalLabelRotation={30}
     />
   );
 };
